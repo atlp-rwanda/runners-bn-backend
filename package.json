@@ -1,0 +1,35 @@
+{
+  "name": "runners-bn-backend",
+  "version": "1.0.0",
+  "description": "Barefoot nomad is an application that will enable its “Company Nomads” book their international travel and accommodation globally; easily and conveniently across all the locations/centers where the Company has its operations.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon --exec babel-node src/index",
+    "start": "babel-node ./src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/atlp-rwanda/runners-bn-backend.git"
+  },
+  "author": "Runners",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/atlp-rwanda/runners-bn-backend/issues"
+  },
+  "homepage": "https://github.com/atlp-rwanda/runners-bn-backend#readme",
+  "dependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/node": "^7.12.10",
+    "@babel/polyfill": "^7.12.1",
+    "@babel/preset-env": "^7.12.10",
+    "@babel/register": "^7.12.10",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0",
+    "nodemon": "^2.0.6"
+  }
+}
