@@ -1,3 +1,4 @@
+import '@babel/polyfill';
 import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
@@ -19,6 +20,8 @@ app.use('/*', (_req, res) => {
   res.status(404).json({ message: 'Route Not Found' });
 });
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 4000;
 
 app.listen(port, console.log(`Listening on port ${port}...`));
+
+export default app;
