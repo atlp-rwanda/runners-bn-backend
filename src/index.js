@@ -4,6 +4,7 @@ import morgan from 'morgan';
 import cors from 'cors';
 import { config } from 'dotenv';
 import routes from './routes';
+import db from './database/models/index';
 
 config();
 
@@ -21,7 +22,12 @@ app.use('/*', (_req, res) => {
 });
 
 const port = process.env.PORT || 4000;
-
-app.listen(port, console.log(`Listening on port ${port}...`));
+const { sequelize, dbUrl } = db;
+sequelize.authenticate()
+  .then(() => {
+    console.log('Database connected...', dbUrl);
+    app.listen(port, console.log(`Listening on port ${port}...`));
+  })
+  .catch((err) => console.log(`Error: ${err}`));
 
 export default app;
