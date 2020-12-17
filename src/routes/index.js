@@ -1,8 +1,23 @@
-import { Router } from "express";
-import welcomeRoute from "./welcomeRoute";
+import setUpSwaggerUi from '../config/swaggerDoc';
+import welcomeRoute from './welcomeRoute';
 
-const router = Router();
+const urlPreffix = '/api/v1';
 
-router.use("/", welcomeRoute);
+/**
+ * @swagger
+ * components:
+ *    securitySchemes:
+ *      bearerAuth:
+ *        type: http
+ *        scheme: bearer
+ *        bearerFormat: JWT
+ * */
 
-export default router;
+const routes = (app) => {
+  app.use(urlPreffix, welcomeRoute);
+  setUpSwaggerUi(app);
+
+  return app;
+};
+
+export default routes;

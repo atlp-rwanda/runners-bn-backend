@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(morgan('dev'));
 
-app.use('/api/v1', routes);
+routes(app);
 
 app.use('/*', (_req, res) => {
   res.status(404).json({ message: 'Route Not Found' });
