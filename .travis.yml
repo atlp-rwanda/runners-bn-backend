@@ -16,7 +16,7 @@ services:
 
 before_script:
   - psql -c 'create database barefoot_test;' -U postgres
-  - npm install
+  - npm start
 
 script:
   - npm run coverage
