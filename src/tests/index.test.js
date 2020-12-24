@@ -17,6 +17,14 @@ describe('API testing', () => {
       'Welcome to barefoot nomand',
     );
   });
+  it('it should display users', async () => {
+    const res = await chai.request(app).get('/api/v1/user');
+    expect(res.status).to.be.equal(200);
+    expect(res.body).to.have.property(
+      'message',
+    );
+  });
+
   it('it should not run non-existing routes', async () => {
     const res = await chai.request(app).get('/*');
     expect(res.status).to.be.equal(404);
@@ -25,5 +33,4 @@ describe('API testing', () => {
       'Route Not Found',
     );
   });
-
 });
