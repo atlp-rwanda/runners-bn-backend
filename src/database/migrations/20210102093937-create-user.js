@@ -29,6 +29,10 @@ module.exports = {
         values: ['superAdmin', 'manager', 'requester', 'tripAdmin'],
         defaultValue: 'requester',
       },
+      password: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
