@@ -70,6 +70,47 @@ const mockdata = {
     email: 'christian@gmail.com',
     password: 'christian',
   },
+  validAccommodation: {
+    accommodationName: 'Radison blue 1',
+    accommodationType: 'hotel',
+    description: 'A serene environment for relaxation',
+    photo: [
+      'http://res.cloudinary.com/mucyo/image/upload/v1612275752/AccommodationPictures/6446009e0a9f1f763205005624d2c84e_gdq67k.jpg',
+      'http://res.cloudinary.com/mucyo/image/upload/v1612275764/AccommodationPictures/277bd12f557288c44d69ab078e3e9698_cajhpm.jpg',
+      'http://res.cloudinary.com/mucyo/image/upload/v1612275758/AccommodationPictures/33a4b673a4b942e80ac74239655f21f7_aw8qtq.jpg'
+    ],
+    amenities: 'swiming pool, decurity Guard',
+    numberOfRooms: 5,
+    latitude: '39.768900',
+    longitude: '-189.786635',
+    locationId: 2,
+    locationID: 10,
+    streetAddress: 'KG 24 Ave',
+    createdAt: '2021-02-02T08:47:30.690Z',
+    updatedAt: '2021-02-02T14:22:44.870Z'
+  },
+  invalidAccommodation: {
+    accommodationName: 'Radison blue',
+    accommodationType: 'Hostel',
+    description: 'A serene environment for relaxation',
+    photo: ['https://images.pexels.com/photos/258154/pexels-photo-258154.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'],
+    amenities: 'gym, pool, sauna',
+    numberOfRooms: 10,
+    latitude: '37.421925',
+    longitude: '-122.0841293',
+    locationId: 1,
+    streetAddress: 'KG 24 Ave',
+    createdAt: '2021-02-02T08:47:30.690Z',
+    updatedAt: '2021-02-02T14:22:44.870Z'
+  },
+  loginadmin: {
+    email: 'barefoottripadmin@runners.com',
+    password: 'james'
+  },
+  loginManager: {
+    email: 'barefootmanager@runners.com',
+    password: 'james'
+  }
 };
 
 export default mockdata;

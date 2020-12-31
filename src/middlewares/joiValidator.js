@@ -1,7 +1,7 @@
 import Joi from 'joi';
 import joiResponse from '../helpers/joiResponse';
 /** Class representing joi validation . */
-class JoiValidator {
+export default class JoiValidator {
 /**
 * @description this method validate user result
 * @param {object} req
@@ -33,7 +33,7 @@ class JoiValidator {
   static signinValidator(req, res, next) {
     const schema = Joi.object({
       email: Joi.string().email().required(),
-      password: Joi.string().required().min(8),
+      password: Joi.string().required().min(4),
     });
     joiResponse(req.body, res, schema, next);
   }
@@ -101,6 +101,30 @@ class JoiValidator {
   }
 
   /**
+* @description this method validate user result
+* @param {object} req
+* @param {object} res
+* @param {object} next
+* @returns {object} res
+* @memberof JoiValidator
+*/
+  static accommodationValidator(req, res, next) {
+    const schema = Joi.object({
+      accommodationName: Joi.string().required().min(3).max(50),
+      accommodationType: Joi.string().required().min(3).max(10),
+      description: Joi.string().required().min(5).max(1000),
+      amenities: Joi.string().min(1).required(),
+      numberOfRooms: Joi.number().required().min(1),
+      latitude: Joi.number().required(),
+      longitude: Joi.number().required(),
+      locationId: Joi.number().valid(1, 2, 3, 4).required().label('Location Id')
+        .options({ messages: { 'any.only': '{{#label}} does not match any location ' } }),
+      streetAddress: Joi.string().required().min(3),
+    });
+    joiResponse(req.body, res, schema, next);
+  }
+
+  /**
 * @description this method validate user inputs
 * @param {object} req  provides the requests from users
 * @param {object} res  provides relevant responses to the user
@@ -149,4 +173,3 @@ class JoiValidator {
     joiResponse(req.body, res, schema, next);
   }
 }
-export default JoiValidator;

@@ -90,6 +90,7 @@ router.post('/signup', signupValidator, UserController.signup);
  *             description: server error.
  * */
 router.post('/login', signinValidator, passportCheck, UserController.signin);
+
 /**
  * @swagger
  * /users/{id}/role:
