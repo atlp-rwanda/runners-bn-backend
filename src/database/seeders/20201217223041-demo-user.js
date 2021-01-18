@@ -1,11 +1,39 @@
 module.exports = {
   up: async (queryInterface) => queryInterface.bulkInsert('Users', [{
-    id: '38eb202c-3f67-4eed-b7ac-9c31bc226e0c',
-    first_name: 'Mucyo Aime Christian'
+    firstName: 'John',
+    lastName: 'requester',
+    email: 'barefootrequester@runners.com',
+    managerId: 2,
+    role: 'requester',
+    createdAt: new Date(),
+    updatedAt: new Date()
   },
   {
-    id: '83b2a3e7-9ba4-4d3f-b3a3-d31940ee2edc',
-    first_name: 'Nyagatare James',
+    firstName: 'Jane',
+    lastName: 'manager',
+    email: 'barefootmanager@runners.com',
+    managerId: null,
+    role: 'manager',
+    createdAt: new Date(),
+    updatedAt: new Date()
+  },
+  {
+    firstName: 'Joe',
+    lastName: 'tripadmin',
+    email: 'andelarunners@gmail.com',
+    managerId: null,
+    role: 'tripAdmin',
+    createdAt: new Date(),
+    updatedAt: new Date()
+  },
+  {
+    firstName: 'Dan',
+    lastName: 'superadmin',
+    email: 'jimnyagtr@gmail.com',
+    managerId: null,
+    role: 'superAdmin',
+    createdAt: new Date(),
+    updatedAt: new Date()
   },
   ], {}),
   down: (queryInterface) => queryInterface.bulkDelete('Users', null, {})

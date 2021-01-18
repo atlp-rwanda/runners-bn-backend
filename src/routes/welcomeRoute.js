@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { Response } from '../helpers/sendResponse';
-import models from '../database/models';
+import Response from '../helpers/sendResponse';
+import code from '../helpers/statusCode';
 
 const router = Router();
 
@@ -19,11 +19,6 @@ const router = Router();
  *                description: successfully working
  * */
 
-router.get('/', (_req, res) => Response.success(res, 200, 'Welcome to barefoot nomand'));
-
-router.get('/user', async (req, res) => {
-  const users = await models.User.findAll();
-  Response.success(res, 200, 'users fetched successfully', users);
-});
+router.get('/', (_req, res) => Response.success(res, code.ok, 'Welcome to barefoot nomand'));
 
 export default router;
