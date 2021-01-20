@@ -2,9 +2,10 @@ module.exports = {
   up: async (queryInterface) => queryInterface.bulkInsert('Users', [{
     firstName: 'John',
     lastName: 'requester',
-    email: 'barefootrequester@runners.com',
+    email: 'andelarunners@gmail.com',
     managerId: 2,
     role: 'requester',
+    password: 'james',
     createdAt: new Date(),
     updatedAt: new Date()
   },
@@ -14,24 +15,27 @@ module.exports = {
     email: 'barefootmanager@runners.com',
     managerId: null,
     role: 'manager',
+    password: 'james',
     createdAt: new Date(),
     updatedAt: new Date()
   },
   {
     firstName: 'Joe',
     lastName: 'tripadmin',
-    email: 'andelarunners@gmail.com',
+    email: 'barefoottripadmin@runners.com',
     managerId: null,
     role: 'tripAdmin',
+    password: 'james',
     createdAt: new Date(),
     updatedAt: new Date()
   },
   {
     firstName: 'Dan',
     lastName: 'superadmin',
-    email: 'jimnyagtr@gmail.com',
+    email: 'superadmin@runners.com',
     managerId: null,
     role: 'superAdmin',
+    password: 'james',
     createdAt: new Date(),
     updatedAt: new Date()
   },

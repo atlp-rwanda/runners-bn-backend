@@ -5,8 +5,12 @@ const { User } = models;
 class UserService {
 /**
    * Get user by email if exists
+<<<<<<< HEAD
    * @param {string} param email to be checked against
    * @param {res} res used to give server error response to the user
+=======
+   * @param {string} param parameter to be checked against
+>>>>>>> eabc650 ( feat(reset password): resets password)
    * @return {object} Oject of user if found
    */
   static async findUser(param) {

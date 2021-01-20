@@ -1,6 +1,7 @@
 import mocha from 'mocha';
 import chai from 'chai';
 import chaiHttp from 'chai-http';
+import jwt from 'jsonwebtoken';
 import app from '../index';
 import mockdata from './mockdata';
 
@@ -10,6 +11,7 @@ const { expect } = chai;
 const {
   it, describe
 } = mocha;
+const token = jwt.sign(mockdata.resetEmail, process.env.JWT_KEY);
 
 describe('User related tests:', () => {
   it('should update user role', async () => {
@@ -27,5 +29,22 @@ describe('User related tests:', () => {
     const res = await chai.request(app).put('/api/v1/users/3/role').set('Authorization', mockdata.invalidToken).send(mockdata.userInvalidRole);
     expect(res.status).to.be.equal(401);
     expect(res.body).to.have.property('error');
+  });
+  it('should not send a reset link to an invalid email', async () => {
+    const res = await chai.request(app).post('/api/v1/users/forgotPassword').send(mockdata.resetInvalidEmail);
+    expect(res.status).to.be.equal(400);
+  });
+  it('should send a reset link to the user', async () => {
+    const res = await chai.request(app).post('/api/v1/users/forgotPassword').send(mockdata.resetEmail);
+    expect(res.status).to.be.equal(201);
+    expect(res.body).to.have.property('message');
+  });
+  it('should reset the password', async () => {
+    const res = await chai.request(app).put(`/api/v1/users/resetPassword/${token}`).send(mockdata.resetPassword);
+    expect(res.status).to.be.equal(200);
+  });
+  it('should not reset the password with invalid token', async () => {
+    const res = await chai.request(app).put(`/api/v1/users/resetPassword/${mockdata.invalidToken}`).send(mockdata.resetPassword);
+    expect(res.status).to.be.equal(401);
   });
 });

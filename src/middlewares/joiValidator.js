@@ -16,4 +16,19 @@ export default class JoiValidator {
     });
     joiResponse(req.params, res, schema, next);
   }
+
+  static forgotPassValidator(req, res, next) {
+    const schema = Joi.object({
+      email: Joi.string().email().required()
+    });
+    joiResponse(req.body, res, schema, next);
+  }
+
+  static resetPassValidator(req, res, next) {
+    const schema = Joi.object({
+      password: Joi.string().required(),
+      confirmPassword: Joi.string().required(),
+    });
+    joiResponse(req.body, res, schema, next);
+  }
 }
