@@ -5,12 +5,19 @@ const {
 module.exports = (sequelize, DataTypes) => {
   /** Class representing a User model . */
   class User extends Model {
-  /**
-* @description this method defines user model
-* @returns {object} User
+    /**
+* @description this method to associate trip model to user model
+* @param {Object} models
+* @returns {object} returns associations
 * @memberof User
 */
-    static associate() {
+    static associate(models) {
+      // define association here
+      User.hasMany(models.Trip, {
+        foreignKey: 'userId',
+        onDelete: 'CASCADE',
+        hooks: true,
+      });
     }
   }
   User.init({

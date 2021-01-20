@@ -39,11 +39,11 @@ class JoiValidator {
   }
 
   /**
-* @description this method validate user result
-* @param {object} req
-* @param {object} res
-* @param {object} next
-* @returns {object} res
+* @description this method validate user inputs
+* @param {object} req  provides the requests from users
+* @param {object} res  provides relevant responses to the user
+* @param {object} next moves to the next middleware in route
+* @returns {object} returns schema object
 * @memberof JoiValidator
 */
   static roleValidator(req, res, next) {
@@ -54,26 +54,26 @@ class JoiValidator {
   }
 
   /**
-* @description this method validate user result
-* @param {object} req
-* @param {object} res
-* @param {object} next
-* @returns {object} res
+* @description this method validate user inputs
+* @param {object} req  provides the requests from users
+* @param {object} res  provides relevant responses to the user
+* @param {object} next moves to the next middleware in route
+* @returns {object} returns schema object
 * @memberof JoiValidator
 */
   static roleIdValidator(req, res, next) {
     const schema = Joi.object({
-      id: Joi.number().required(),
+      id: Joi.number().min(1).required(),
     });
     joiResponse(req.params, res, schema, next);
   }
 
   /**
-* @description this method validate user result
-* @param {object} req
-* @param {object} res
-* @param {object} next
-* @returns {object} res
+* @description this method validate user inputs
+* @param {object} req  provides the requests from users
+* @param {object} res  provides relevant responses to the user
+* @param {object} next moves to the next middleware in route
+* @returns {object} returns schema object
 * @memberof JoiValidator
 */
   static forgotPassValidator(req, res, next) {
@@ -84,11 +84,11 @@ class JoiValidator {
   }
 
   /**
-* @description this method validate user result
-* @param {object} req
-* @param {object} res
-* @param {object} next
-* @returns {object} res
+* @description this method validate user inputs
+* @param {object} req  provides the requests from users
+* @param {object} res  provides relevant responses to the user
+* @param {object} next moves to the next middleware in route
+* @returns {object} returns schema object
 * @memberof JoiValidator
 */
   static resetPassValidator(req, res, next) {
@@ -98,6 +98,40 @@ class JoiValidator {
         .options({ messages: { 'any.only': 'Passwords does not match' } }),
     });
     joiResponse(req.body, res, schema, next);
+  }
+
+  /**
+* @description this method validate user inputs
+* @param {object} req  provides the requests from users
+* @param {object} res  provides relevant responses to the user
+* @param {object} next moves to the next middleware in route
+* @returns {object} returns schema object
+* @memberof JoiValidator
+*/
+  static tripReqValidator(req, res, next) {
+    const schema = Joi.object({
+      from: Joi.number().min(1).required(),
+      to: Joi.number().min(1).disallow(Joi.ref('from')).required(),
+      reason: Joi.string().min(5).required(),
+      travelDate: Joi.date().min('now').required(),
+      returnDate: Joi.date().min(Joi.ref('travelDate'))
+    });
+    joiResponse(req.body, res, schema, next);
+  }
+
+  /**
+* @description this method validate user inputs
+* @param {object} req  provides the requests from users
+* @param {object} res  provides relevant responses to the user
+* @param {object} next moves to the next middleware in route
+* @returns {object} returns schema object
+* @memberof JoiValidator
+*/
+  static tripIdValidator(req, res, next) {
+    const schema = Joi.object({
+      tripId: Joi.number().min(1).required(),
+    });
+    joiResponse(req.params, res, schema, next);
   }
 }
 export default JoiValidator;

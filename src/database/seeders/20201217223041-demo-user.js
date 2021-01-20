@@ -30,6 +30,16 @@ module.exports = {
     updatedAt: new Date()
   },
   {
+    firstName: 'Jay',
+    lastName: 'requester',
+    email: 'jay@gmail.com',
+    managerId: 2,
+    role: 'requester',
+    password: 'james',
+    createdAt: new Date(),
+    updatedAt: new Date()
+  },
+  {
     firstName: 'Dan',
     lastName: 'superadmin',
     email: 'superadmin@runners.com',
