@@ -133,5 +133,20 @@ class JoiValidator {
     });
     joiResponse(req.params, res, schema, next);
   }
+
+  /**
+* @description this method validate user inputs
+* @param {object} req  provides the comment request from users
+* @param {object} res  provides relevant responses to the user
+* @param {object} next moves to the next middleware in route
+* @returns {object} returns schema object
+* @memberof JoiValidator
+*/
+  static commentValidator(req, res, next) {
+    const schema = Joi.object({
+      comment: Joi.string().min(2).required()
+    });
+    joiResponse(req.body, res, schema, next);
+  }
 }
 export default JoiValidator;

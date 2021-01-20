@@ -1,11 +1,16 @@
 import { Router } from 'express';
+import CommentController from '../controllers/commentController';
 import TripController from '../controllers/tripController';
 import JoiValidator from '../middlewares/joiValidator';
 
 import Auth from '../middlewares/auth';
+import isAllowed from '../middlewares/isAllowed';
+import isValidTrip from '../middlewares/isValidTrip';
 
-const { tripReqValidator, tripIdValidator } = JoiValidator;
-
+const {
+  tripReqValidator, tripIdValidator, roleIdValidator, commentValidator
+} = JoiValidator;
+const { addComment, getcomments, deleteComment } = CommentController;
 const {
   create, getAll, getOne, update
 } = TripController;
@@ -156,5 +161,100 @@ router.get('/:tripId', adminAuth, tripIdValidator, getOne);
  *             description: server error.
  * */
 router.put('/:tripId', adminAuth, tripIdValidator, tripReqValidator, update);
+/**
+ * @swagger
+ * /trips/{id}/comment:
+ *   post:
+ *     tags:
+ *       - Trips
+ *     security:
+ *       - bearerAuth: []
+ *     summary: add a comment on a trip
+ *     consumes:
+ *       - application/json
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               comment:
+ *                 type: string
+ *                 required: true
+ *     responses:
+ *       201:
+ *             description: Successfully commented on a trip.
+ *       400:
+ *             description: bad request
+ *       401:
+ *             description: Unauthorized
+ *       403:
+ *             description: forbidden
+ *       500:
+ *             description: server error.
+ * */
+router.post('/:id/comment', adminAuth, isAllowed.isCommentator, roleIdValidator, isValidTrip.isValid, commentValidator, addComment);
+/**
+ * @swagger
+ * /trips/{id}/comments:
+ *   get:
+ *     tags:
+ *       - Trips
+ *     security:
+ *       - bearerAuth: []
+ *     summary: gets all comments on a trip
+ *     consumes:
+ *       - application/json
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *     responses:
+ *       200:
+ *             description: Successfully retrieved comments.
+ *       400:
+ *             description: bad request
+ *       401:
+ *             description: Unauthorized
+ *       403:
+ *             description: forbidden
+ *       500:
+ *             description: server error.
+ * */
+router.get('/:id/comments', adminAuth, isAllowed.isCommentator, roleIdValidator, getcomments);
+/**
+ * @swagger
+ * /trips/comments/{id}:
+ *   delete:
+ *     tags:
+ *       - Trips
+ *     security:
+ *       - bearerAuth: []
+ *     summary: deletes a comment
+ *     consumes:
+ *       - application/json
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *     responses:
+ *       200:
+ *             description: Successfully deleted the comment.
+ *       400:
+ *             description: bad request
+ *       401:
+ *             description: Unauthorized
+ *       403:
+ *             description: forbidden
+ *       404:
+ *            description: not found
+ *       500:
+ *             description: server error.
+ * */
+router.delete('/comments/:id', adminAuth, roleIdValidator, deleteComment);
 
 export default router;

@@ -46,4 +46,61 @@ describe('Trip related tests:', () => {
     const res = await chai.request(app).put(`/api/v1/trips/${tripId}`).set('Authorization', mockdata.reqToken).send(mockdata.tripUpdatedReq);
     expect(res.status).to.be.equal(200);
   });
+  it('should add a comment on a trip', async () => {
+    const trip = await chai.request(app).post('/api/v1/trips/new').set('Authorization', mockdata.reqToken).send(mockdata.tripnewRequest);
+    const tripId = trip.body.data.id;
+    const res = await chai.request(app).post(`/api/v1/trips/${tripId}/comment`).set('Authorization', mockdata.reqToken).send(mockdata.comment);
+    expect(res.status).to.be.equal(201);
+    expect(res.body).to.be.a('object');
+    expect(res.body).to.have.property('message');
+  });
+  it('should only allow manager and a requester to add a comment', async () => {
+    const trip = await chai.request(app).post('/api/v1/trips/new').set('Authorization', mockdata.reqToken).send(mockdata.tripnewRequest);
+    const tripId = trip.body.data.id;
+    const res = await chai.request(app).post(`/api/v1/trips/${tripId}/comment`).set('Authorization', mockdata.token).send(mockdata.comment);
+    expect(res.status).to.be.equal(403);
+    expect(res.body).to.be.a('object');
+    expect(res.body).to.have.property('error');
+  });
+  it('should only allow relevant manager and a requester to add a comment', async () => {
+    const trip = await chai.request(app).post('/api/v1/trips/new').set('Authorization', mockdata.reqToken).send(mockdata.tripnewRequest);
+    const tripId = trip.body.data.id;
+    const res = await chai.request(app).post(`/api/v1/trips/${tripId}/comment`).set('Authorization', mockdata.reqTwoToken).send(mockdata.comment);
+    expect(res.status).to.be.equal(403);
+    expect(res.body).to.be.a('object');
+    expect(res.body).to.have.property('error');
+  });
+  it('should only a manager or a requester to add a comment on an existing trip', async () => {
+    const res = await chai.request(app).post('/api/v1/trips/100/comment').set('Authorization', mockdata.reqTwoToken).send(mockdata.comment);
+    expect(res.status).to.be.equal(404);
+    expect(res.body).to.be.a('object');
+    expect(res.body).to.have.property('error');
+  });
+  it('should allow a manager or a requester to view all comments', async () => {
+    const trip = await chai.request(app).post('/api/v1/trips/new').set('Authorization', mockdata.reqToken).send(mockdata.tripnewRequest);
+    const tripId = trip.body.data.id;
+    await chai.request(app).post(`/api/v1/trips/${tripId}/comment`).set('Authorization', mockdata.reqToken).send(mockdata.comment);
+    const res = await chai.request(app).get(`/api/v1/trips/${tripId}/comments`).set('Authorization', mockdata.reqToken);
+    expect(res.status).to.be.equal(200);
+    expect(res.body).to.be.a('object');
+    expect(res.body).to.have.property('message');
+    expect(res.body).to.have.property('data');
+  });
+  it('should allow a user to delete a comment', async () => {
+    const trip = await chai.request(app).post('/api/v1/trips/new').set('Authorization', mockdata.reqToken).send(mockdata.tripnewRequest);
+    const tripId = trip.body.data.id;
+    const comment = await chai.request(app).post(`/api/v1/trips/${tripId}/comment`).set('Authorization', mockdata.reqToken).send(mockdata.comment);
+    const { id } = comment.body.data;
+    const res = await chai.request(app).delete(`/api/v1/trips/comments/${id}`).set('Authorization', mockdata.reqToken);
+    expect(res.status).to.be.equal(200);
+  });
+  it('should  only allow manager and a requester to view all comments', async () => {
+    const trip = await chai.request(app).post('/api/v1/trips/new').set('Authorization', mockdata.reqToken).send(mockdata.tripnewRequest);
+    const tripId = trip.body.data.id;
+    await chai.request(app).post(`/api/v1/trips/${tripId}/comment`).set('Authorization', mockdata.reqToken).send(mockdata.comment);
+    const res = await chai.request(app).get(`/api/v1/trips/${tripId}/comments`).set('Authorization', mockdata.token);
+    expect(res.status).to.be.equal(403);
+    expect(res.body).to.be.a('object');
+    expect(res.body).to.have.property('error');
+  });
 });

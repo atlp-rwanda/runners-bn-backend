@@ -56,7 +56,7 @@ class TripService {
 */
   static async findOne(param) {
     try {
-      return await Trip.findOne({
+      return Trip.findOne({
         where: param,
         include: [
           { ...userInc, as: 'requester' },
