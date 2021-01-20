@@ -6,6 +6,8 @@ import UserService from '../services/userServices';
 import sendEmailToUser from '../helpers/mailer/sendMailer';
 import actionsEnum from '../helpers/actions';
 import code from '../helpers/statusCode';
+import generateToken from '../helpers/generateToken';
+import Password from '../helpers/generatePassword';
 
 /** Class representing user controllers */
 export default class UserController {
@@ -79,6 +81,71 @@ export default class UserController {
       });
     } catch (error) {
       return Response.error(res, code.serverError, error);
+    }
+  }
+
+  /**
+     * @description user signUp method
+     * @param {object} req
+     * @param {object} res
+     * @returns {object} createUser
+     * @memberof userController
+     */
+  static async signup(req, res) {
+    try {
+      const { password, email } = req.body;
+      // check if user exists
+      const userExist = await UserService.findUser({ email });
+      if (userExist) {
+        return Response.error(res, code.conflict, 'User already exist');
+      }
+      const newPassword = await Password.encryptPassword(password);
+      // update data
+      req.body.password = newPassword;
+
+      const createUser = await UserService.createUser(req.body);
+      const payload = {
+        id: createUser.id,
+        email: createUser.email,
+        firstName: createUser.firstName,
+        lastName: createUser.lastName,
+        role: createUser.role
+      };
+
+      const token = generateToken(payload);
+      delete createUser.password;
+      return Response.success(res, code.created, 'User created successfully', {
+        user: createUser, token
+      });
+    } catch (error) {
+      return Response.error(res, code.serverError, 'Something went wrong while registering');
+    }
+  }
+
+  /**
+     * @description user signUp method
+     * @param {object} req
+     * @param {object} res
+     * @returns {object} createUser
+     * @memberof userController
+     */
+  static async signin(req, res) {
+    try {
+      const loggedInUser = req.user;
+      const payload = {
+        id: loggedInUser.id,
+        firstName: loggedInUser.firstName,
+        lastName: loggedInUser.lastName,
+        email: loggedInUser.email,
+        role: loggedInUser.role
+      };
+      const token = generateToken(payload);
+      delete loggedInUser.password;
+      return Response.success(res, code.ok, 'User logged in successfully', {
+        user: loggedInUser, token
+      });
+    } catch (error) {
+      return Response.error(res, code.serverError, 'Something went wrong! Login failed');
     }
   }
 }

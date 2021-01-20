@@ -2,12 +2,94 @@ import { Router } from 'express';
 import UserController from '../controllers/userController';
 import Auth from '../middlewares/auth';
 import JoiValidator from '../middlewares/joiValidator';
+import passportCheck from '../middlewares/passportCheck';
 
 const router = Router();
 
 const {
-  roleValidator, roleIdValidator, forgotPassValidator, resetPassValidator
+  roleValidator,
+  roleIdValidator,
+  forgotPassValidator,
+  resetPassValidator,
+  signinValidator,
+  signupValidator
 } = JoiValidator;
+
+/**
+ * @swagger
+ * /users/signup:
+ *    post:
+ *     tags:
+ *       - Users
+ *     summary: register new user
+ *     consumes:
+ *       - application/json
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               firstName:
+ *                 type: string
+ *                 required: true
+ *               lastName:
+ *                 type: string
+ *                 required: true
+ *               email:
+ *                 type: string
+ *                 required: true
+ *               password:
+ *                 type: string
+ *                 required: true
+ *               confirmPassword:
+ *                 type: string
+ *                 required: true
+ *
+ *     responses:
+ *       201:
+ *             description: user successfully created.
+ *       400:
+ *             description: Bad request.
+ *       500:
+ *             description: server error.
+ * */
+
+router.post('/signup', signupValidator, UserController.signup);
+
+/**
+ * @swagger
+ * /users/login:
+ *    post:
+ *     tags:
+ *       - Users
+ *     summary: sign in a user
+ *     consumes:
+ *       - application/json
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 required: true
+ *               password:
+ *                 type: string
+ *                 required: true
+ *
+ *     responses:
+ *       200:
+ *            description: user successfully logged in.
+ *       400:
+ *             description: Bad request.
+ *       401:
+ *             description: Unauthorized.
+ *       500:
+ *             description: server error.
+ * */
+router.post('/login', signinValidator, passportCheck, UserController.signin);
 /**
  * @swagger
  * /users/{id}/role:
@@ -117,5 +199,4 @@ router.post('/forgotPassword', forgotPassValidator, UserController.forgotPasswor
  *             description: server error.
  * */
 router.put('/resetPassword/:token', Auth.resetPassAuth, resetPassValidator, UserController.resetPassword);
-
 export default router;

@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import Response from '../helpers/sendResponse';
 import code from '../helpers/statusCode';
+import Response from '../helpers/sendResponse';
 
 const router = Router();
 
