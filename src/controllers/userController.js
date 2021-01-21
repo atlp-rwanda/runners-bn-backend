@@ -20,8 +20,8 @@ export default class UserController {
     try {
       const foundUser = await UserService.findUser({ email });
       if (foundUser) {
-        await sendEmailToUser(foundUser.email, actionsEnum.resetPassword, foundUser);
-        return Response.success(res, code.created, 'email has been sent please change your password');
+        sendEmailToUser(foundUser.email, actionsEnum.resetPassword, foundUser);
+        return Response.success(res, code.ok, 'email has been sent please change your password');
       }
       return Response.error(res, code.notFound, 'user email does not exist');
     } catch (error) {
@@ -38,9 +38,8 @@ export default class UserController {
   static async resetPassword(req, res) {
     try {
       const { email } = req.user;
-      const { password, confirmPassword } = req.body;
+      const { password } = req.body;
       const user = await UserService.findUser({ email });
-      if (password !== confirmPassword) return Response.error(res, code.badRequest, 'Make sure your passwords match!');
       if (!user) return Response.error(res, code.notFound, 'User does no longer exists!');
       const salt = await bcrypt.genSalt(10);
       const newPassword = await bcrypt.hash(password, salt);
