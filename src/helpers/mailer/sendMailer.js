@@ -1,8 +1,8 @@
 import sgMail from '@sendgrid/mail';
 import * as emailTemplate from './templates';
 
-const sendEmailToUser = async (to, action, data) => {
-  const { SENDGRID_API_KEY, FROM_EMAIL, NODE_ENV } = process.env;
+const sendEmailToUser = (to, action, data) => {
+  const { SENDGRID_API_KEY, FROM_EMAIL } = process.env;
 
   sgMail.setApiKey(SENDGRID_API_KEY);
   const emailSender = emailTemplate[action](data);
@@ -21,7 +21,7 @@ const sendEmailToUser = async (to, action, data) => {
            </div>
            </div>`
   };
-  return NODE_ENV === 'test' ? true : sgMail.send(message);
+  return sgMail.send(message);
 };
 
 export default sendEmailToUser;

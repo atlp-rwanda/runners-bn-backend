@@ -27,7 +27,8 @@ export default class JoiValidator {
   static resetPassValidator(req, res, next) {
     const schema = Joi.object({
       password: Joi.string().required(),
-      confirmPassword: Joi.string().required(),
+      confirmPassword: Joi.any().valid(Joi.ref('password')).required()
+        .options({ messages: { 'any.only': 'Passwords does not match' } }),
     });
     joiResponse(req.body, res, schema, next);
   }

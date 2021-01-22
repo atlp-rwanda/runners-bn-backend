@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import UserController from '../controllers/user';
+import UserController from '../controllers/userController';
 import Auth from '../middlewares/auth';
 import JoiValidator from '../middlewares/joiValidator';
 
@@ -68,7 +68,7 @@ router.put('/:id/role', Auth.adminAuth, roleValidator, roleIdValidator, UserCont
  *                 required: true
  *
  *     responses:
- *       201:
+ *       200:
  *             description: Email successfully sent.
  *       400:
  *             description: Bad request.
