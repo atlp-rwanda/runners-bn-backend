@@ -17,6 +17,32 @@ const mockdata = {
     password: 'Andela@2020',
     confirmPassword: 'Andela@2020'
   },
+  signup: {
+    firstName: 'Mucyo',
+    lastName: 'Aime christian',
+    email: 'christian@gmail.com',
+    password: 'christian123',
+    confirmPassword: 'christian123'
+  },
+  signupInvalid: {
+    firstName: 'Mucyo',
+    lastName: 'Aime christian',
+    email: 'christiangmal.com',
+    password: 'christian123',
+    confirmPassword: 'christian123'
+  },
+  signin: {
+    email: 'christian@gmail.com',
+    password: 'christian123',
+  },
+  signinInvalidPassword: {
+    email: 'christian@gmail.com',
+    password: 'christian',
+  },
+  signinInvalidEmail: {
+    email: 'christian@gmail.com',
+    password: 'christian',
+  },
 };
 
 export default mockdata;

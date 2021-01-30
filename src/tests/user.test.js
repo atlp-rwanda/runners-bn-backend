@@ -51,4 +51,42 @@ describe('User related tests:', () => {
     const res = await chai.request(app).put(`/api/v1/users/resetPassword/${mockdata.invalidToken}`).send(mockdata.resetPassword);
     expect(res.status).to.be.equal(401);
   });
+  it('should register a user ', async () => {
+    const res = await chai.request(app).post('/api/v1/users/signup').send(mockdata.signup);
+    expect(res.status).to.be.equal(201);
+    expect(res.body).to.be.a('object');
+    expect(res.body).to.have.property('message');
+    expect(res.body).to.have.property('data');
+  });
+  it('should not register a user already registered', async () => {
+    const res = await chai.request(app).post('/api/v1/users/signup').send(mockdata.signup);
+    expect(res.status).to.be.equal(409);
+    expect(res.body).to.be.a('object');
+    expect(res.body).to.have.property('error');
+  });
+  it('should not register a user without valid email', async () => {
+    const res = await chai.request(app).post('/api/v1/users/signup').send(mockdata.signupInvalid);
+    expect(res.status).to.be.equal(400);
+    expect(res.body).to.be.a('object');
+    expect(res.body).to.have.property('error');
+  });
+  it('should login a user', async () => {
+    const res = await chai.request(app).post('/api/v1/users/login').send(mockdata.signin);
+    expect(res.status).to.be.equal(200);
+    expect(res.body).to.be.a('object');
+    expect(res.body).to.have.property('message');
+    expect(res.body).to.have.property('data');
+  });
+  it('should not login a user without valid password', async () => {
+    const res = await chai.request(app).post('/api/v1/users/login').send(mockdata.signinInvalidPassword);
+    expect(res.status).to.be.equal(401);
+    expect(res.body).to.be.a('object');
+    expect(res.body).to.have.property('error');
+  });
+  it('should not login a user without valid email', async () => {
+    const res = await chai.request(app).post('/api/v1/users/login').send(mockdata.signinInvalidEmail);
+    expect(res.status).to.be.equal(401);
+    expect(res.body).to.be.a('object');
+    expect(res.body).to.have.property('error');
+  });
 });

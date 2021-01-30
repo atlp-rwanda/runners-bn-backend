@@ -32,6 +32,7 @@ const options = {
   },
   security: ['JWT'],
   apis: ['src/routes/*.js'],
+
 };
 
 const setUpSwaggerUi = (app) => {

@@ -3,8 +3,12 @@ import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 import { config } from 'dotenv';
+import passport from 'passport';
 import routes from './routes';
 import db from './database/models/index';
+import Passport from './config/passport';
+
+Passport(passport);
 
 config();
 
@@ -14,6 +18,9 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(morgan('dev'));
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 routes(app);
 
