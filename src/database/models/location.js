@@ -3,13 +3,13 @@ const {
 } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-  /** Class representing a User model . */
+  /** Class representing a location model . */
   class Location extends Model {
     /**
-* @description this method to associate trip model to user model
+* @description this method defines location association
 * @param {Object} models
-* @returns {object} returns associations
-* @memberof User
+* @returns {object} Location
+* @memberof Location
 */
     static associate(models) {
       // define association here
