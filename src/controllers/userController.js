@@ -8,6 +8,7 @@ import actionsEnum from '../helpers/actions';
 import code from '../helpers/statusCode';
 import generateToken from '../helpers/generateToken';
 import Password from '../helpers/generatePassword';
+import sequelizeErrorHandler from '../helpers/sequelizeErrorHandler';
 
 /** Class representing user controllers */
 export default class UserController {
@@ -92,34 +93,26 @@ export default class UserController {
      * @memberof userController
      */
   static async signup(req, res) {
-    try {
-      const { password, email } = req.body;
-      // check if user exists
-      const userExist = await UserService.findUser({ email });
-      if (userExist) {
-        return Response.error(res, code.conflict, 'User already exist');
-      }
-      const newPassword = await Password.encryptPassword(password);
-      // update data
-      req.body.password = newPassword;
-
-      const createUser = await UserService.createUser(req.body);
-      const payload = {
-        id: createUser.id,
-        email: createUser.email,
-        firstName: createUser.firstName,
-        lastName: createUser.lastName,
-        role: createUser.role
-      };
-
-      const token = generateToken(payload);
-      delete createUser.password;
-      return Response.success(res, code.created, 'User created successfully', {
-        user: createUser, token
-      });
-    } catch (error) {
-      return Response.error(res, code.serverError, 'Something went wrong while registering');
+    const { password } = req.body;
+    const newPassword = await Password.encryptPassword(password);
+    // update data
+    req.body.password = newPassword;
+    const createUser = await UserService.createUser(req.body);
+    if (createUser.errors) {
+      const { errors, statusCode } = sequelizeErrorHandler(createUser.errors);
+      return Response.error(res, statusCode, errors);
     }
+    const token = generateToken({
+      id: createUser.id,
+      email: createUser.email,
+      firstName: createUser.firstName,
+      lastName: createUser.lastName,
+      role: createUser.role
+    });
+    delete createUser.password;
+    return Response.success(res, code.created, 'User created successfully', {
+      user: createUser, token
+    });
   }
 
   /**

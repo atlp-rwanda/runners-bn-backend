@@ -43,7 +43,7 @@ class UserService {
     try {
       return await User.create(user);
     } catch (error) {
-      return error;
+      return { errors: error };
     }
   }
 }
