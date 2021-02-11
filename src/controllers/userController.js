@@ -148,4 +148,23 @@ export default class UserController {
       return Response.error(res, code.serverError, 'Something went wrong! Login failed');
     }
   }
+
+  /**
+     * @description user unsubscribtion method
+     * @param {object} req
+     * @param {object} res
+     * @returns {object} createUser
+     * @memberof userController
+     */
+  static async unsubscribe(req, res) {
+    try {
+      const { id } = req.user;
+      const user = await UserService.findUser({ id });
+      if (!user.emailAllowed) return Response.error(res, code.conflict, 'You are already opted out of email notifications');
+      await UserService.updateUser({ emailAllowed: false }, { id });
+      return Response.success(res, code.ok, 'You ve opted out of email notifications successfully');
+    } catch (error) {
+      return Response.error(res, code.serverError, 'Oops something went wrong');
+    }
+  }
 }

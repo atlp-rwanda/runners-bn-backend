@@ -9,7 +9,7 @@ export default class Auth {
    * @param {Object} next used to move to the next middleware
    * @return {object} object of payload or error
    */
-  static adminAuth(req, res, next) {
+  static userAuth(req, res, next) {
     const token = req.headers.authorization.split(' ')[1];
     verifyToken(token, req, res, next);
   }

@@ -4,20 +4,20 @@ module.exports = {
   up: async (queryInterface) => queryInterface.bulkInsert('Users', [{
     firstName: 'John',
     lastName: 'requester',
-    email: 'andelarunners@gmail.com',
+    email: 'nyagatarejames@gmail.com',
     managerId: 2,
     role: 'requester',
-    password: await passsword.encryptPassword('james'),
+    password: await passsword.encryptPassword('James@2020'),
     createdAt: new Date(),
     updatedAt: new Date()
   },
   {
     firstName: 'Jane',
     lastName: 'manager',
-    email: 'barefootmanager@runners.com',
+    email: 'jimnyagtr@gmail.com',
     managerId: null,
     role: 'manager',
-    password: await passsword.encryptPassword('james'),
+    password: await passsword.encryptPassword('James@2020'),
     createdAt: new Date(),
     updatedAt: new Date()
   },
@@ -27,7 +27,7 @@ module.exports = {
     email: 'barefoottripadmin@runners.com',
     managerId: null,
     role: 'tripAdmin',
-    password: await passsword.encryptPassword('james'),
+    password: await passsword.encryptPassword('James@2020'),
     createdAt: new Date(),
     updatedAt: new Date()
   },
@@ -37,7 +37,7 @@ module.exports = {
     email: 'jay@gmail.com',
     managerId: 2,
     role: 'requester',
-    password: await passsword.encryptPassword('james'),
+    password: await passsword.encryptPassword('James@2020'),
     createdAt: new Date(),
     updatedAt: new Date()
   },
@@ -47,7 +47,7 @@ module.exports = {
     email: 'superadmin@runners.com',
     managerId: null,
     role: 'superAdmin',
-    password: await passsword.encryptPassword('james'),
+    password: await passsword.encryptPassword('James@2020'),
     createdAt: new Date(),
     updatedAt: new Date()
   },

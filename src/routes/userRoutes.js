@@ -129,7 +129,7 @@ router.post('/login', signinValidator, passportCheck, UserController.signin);
  *             description: server error.
  * */
 
-router.put('/:id/role', Auth.adminAuth, roleValidator, roleIdValidator, UserController.updateRole);
+router.put('/:id/role', Auth.userAuth, roleValidator, roleIdValidator, UserController.updateRole);
 /**
  * @swagger
  * /users/forgotPassword:
@@ -200,4 +200,28 @@ router.post('/forgotPassword', forgotPassValidator, UserController.forgotPasswor
  *             description: server error.
  * */
 router.put('/resetPassword/:token', Auth.resetPassAuth, resetPassValidator, UserController.resetPassword);
+
+/**
+ * @swagger
+ * /users/unsubscribe/{token}:
+ *   patch:
+ *     tags:
+ *       - Users
+ *     name: user
+ *     summary: unsubscribe from email
+ *     consumes:
+ *       - application/json
+ *     parameters:
+ *       - name: token
+ *         in: path
+ *         required: true
+ *     responses:
+ *       200:
+ *             description: User opted out from email notifications successfully.
+ *       401:
+ *             description: unauthorized.
+ *       500:
+ *             description: server error.
+ * */
+router.patch('/unsubscribe/:token', Auth.resetPassAuth, UserController.unsubscribe);
 export default router;

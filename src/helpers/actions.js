@@ -1,5 +1,6 @@
 const actionsEnum = {
-  resetPassword: 'resetPassword'
+  resetPassword: 'resetPassword',
+  notificationEmail: 'notificationEmail'
 };
 
 export default actionsEnum;

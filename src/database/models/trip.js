@@ -1,3 +1,5 @@
+import emitter from '../../helpers/EventEmitters/eventEmitter';
+
 const {
   Model
 } = require('sequelize');
@@ -72,5 +74,9 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Trip',
   });
+
+  Trip.afterCreate(({ dataValues }) => emitter.emit('request created', dataValues));
+  Trip.afterUpdate(({ dataValues, _changed }) => emitter.emit('request updated', { dataValues, _changed }));
+
   return Trip;
 };

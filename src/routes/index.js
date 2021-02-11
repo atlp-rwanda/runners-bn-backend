@@ -3,6 +3,7 @@ import welcomeRoute from './welcomeRoute';
 import userRoutes from './userRoutes';
 import accommodationRoutes from './accommodationRoutes';
 import tripRoutes from './tripRoutes';
+import notificationRoutes from './notificationRoute';
 
 const urlPreffix = '/api/v1';
 /**
@@ -20,6 +21,7 @@ const routes = (app) => {
   app.use(`${urlPreffix}/users`, userRoutes);
   app.use(`${urlPreffix}/accommodations`, accommodationRoutes);
   app.use(`${urlPreffix}/trips`, tripRoutes);
+  app.use(`${urlPreffix}/notification`, notificationRoutes);
   setUpSwaggerUi(app);
 
   return app;

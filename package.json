@@ -17,6 +17,7 @@
     "db-drop": "npm run sequelize db:drop nomad",
     "db-create": "npm run sequelize db:create nomad",
     "seed": "npm run sequelize db:seed:all",
+    "undo-migrate-seed": "npm run sequelize db:migrate:undo:all && npm run sequelize db:migrate && npm run sequelize db:seed:all",
     "seed-undo": "npm run sequelize db:seed:undo",
     "seed-undo-all": "npm run sequelize db:seed:undo:all"
   },
@@ -61,7 +62,8 @@
     "sequelize": "^6.4.0",
     "sequelize-cli": "^6.2.0",
     "sequelize-paginate": "^1.1.6",
-    "sinon": "^9.2.4",
+    "sinon": "^9.2.3",
+    "socket.io": "^3.1.1",
     "swagger-jsdoc": "^6.0.0-rc.5",
     "swagger-ui-express": "^4.1.5",
     "uuid": "^8.3.2"
@@ -70,6 +72,7 @@
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
     "coveralls": "^3.1.0",
+    "cross-env": "^7.0.3",
     "eslint": "^7.15.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.22.1",

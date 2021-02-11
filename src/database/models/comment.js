@@ -1,3 +1,5 @@
+import emitter from '../../helpers/EventEmitters/eventEmitter';
+
 const {
   Model
 } = require('sequelize');
@@ -40,5 +42,6 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Comment',
   });
+  Comment.afterCreate(({ dataValues }) => emitter.emit('comment added', dataValues));
   return Comment;
 };
