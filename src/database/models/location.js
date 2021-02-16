@@ -16,6 +16,10 @@ module.exports = (sequelize, DataTypes) => {
       Location.belongsToMany(models.Trip, {
         through: 'location',
       });
+      Location.hasMany(models.Accommodation, {
+        foreignKey: 'locationId',
+        onDelete: 'NO ACTION'
+      });
     }
   }
   Location.init({

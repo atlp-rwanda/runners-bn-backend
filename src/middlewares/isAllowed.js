@@ -17,6 +17,20 @@ class isAllowed {
     if (role !== roles.REQUESTER && role !== roles.MANAGER) return Response.error(res, code.forbidden, 'forbidden!');
     next();
   }
+
+  /**
+* @description this method checks if the user is a tripAdmin
+* @param {object} req  provides the requests' info from users
+* @param {object} res  provides relevant responses to the user
+* @param {object} next moves to the next middleware in route
+* @returns {object} returns object
+* @memberof isAllowed
+*/
+  static isTripAdmin(req, res, next) {
+    const { role } = req.user;
+    if (role !== roles.TRIP_ADMIN) return Response.error(res, code.forbidden, 'forbidden!');
+    next();
+  }
 }
 
 export default isAllowed;

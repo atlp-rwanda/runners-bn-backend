@@ -1,3 +1,5 @@
+import passsword from '../../helpers/generatePassword';
+
 module.exports = {
   up: async (queryInterface) => queryInterface.bulkInsert('Users', [{
     firstName: 'John',
@@ -5,7 +7,7 @@ module.exports = {
     email: 'andelarunners@gmail.com',
     managerId: 2,
     role: 'requester',
-    password: 'james',
+    password: await passsword.encryptPassword('james'),
     createdAt: new Date(),
     updatedAt: new Date()
   },
@@ -15,7 +17,7 @@ module.exports = {
     email: 'barefootmanager@runners.com',
     managerId: null,
     role: 'manager',
-    password: 'james',
+    password: await passsword.encryptPassword('james'),
     createdAt: new Date(),
     updatedAt: new Date()
   },
@@ -25,7 +27,7 @@ module.exports = {
     email: 'barefoottripadmin@runners.com',
     managerId: null,
     role: 'tripAdmin',
-    password: 'james',
+    password: await passsword.encryptPassword('james'),
     createdAt: new Date(),
     updatedAt: new Date()
   },
@@ -35,7 +37,7 @@ module.exports = {
     email: 'jay@gmail.com',
     managerId: 2,
     role: 'requester',
-    password: 'james',
+    password: await passsword.encryptPassword('james'),
     createdAt: new Date(),
     updatedAt: new Date()
   },
@@ -45,7 +47,7 @@ module.exports = {
     email: 'superadmin@runners.com',
     managerId: null,
     role: 'superAdmin',
-    password: 'james',
+    password: await passsword.encryptPassword('james'),
     createdAt: new Date(),
     updatedAt: new Date()
   },
