@@ -1,1 +1,1 @@
-{"reporter": ["lcov","text"], "exclude": ["src/tests", "src/database","src/config","src/helpers/sockets.js" ]}
+{"reporter": ["lcov","text"], "exclude": ["src/tests", "src/database","src/config","src/middlewares/checkUser.js","src/services/googleServices.js","src/helpers/sockets.js" ]}

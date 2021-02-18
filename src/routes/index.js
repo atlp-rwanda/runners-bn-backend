@@ -1,3 +1,4 @@
+import googleRoute from './googleRoute';
 import setUpSwaggerUi from '../config/swaggerDoc';
 import welcomeRoute from './welcomeRoute';
 import userRoutes from './userRoutes';
@@ -24,6 +25,7 @@ const routes = (app) => {
   app.use(`${urlPreffix}/trips`, tripRoutes);
   app.use(`${urlPreffix}/notification`, notificationRoutes);
   app.use(urlPreffix, roomRoutes);
+  app.use(`${urlPreffix}/google`, googleRoute);
   setUpSwaggerUi(app);
 
   return app;

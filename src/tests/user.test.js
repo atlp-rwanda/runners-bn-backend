@@ -1,9 +1,12 @@
+/* eslint-disable import/no-duplicates */
 import mocha from 'mocha';
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import jwt from 'jsonwebtoken';
+import { mock } from 'sinon';
 import app from '../index';
 import mockdata from './mockdata';
+import SocialAuthController from '../controllers/socialAuthController';
 
 chai.should();
 chai.use(chaiHttp);
@@ -94,5 +97,23 @@ describe('User related tests:', () => {
   it('should not verify email with invalid token', async () => {
     const res = await chai.request(app).patch(`/api/v1/users/verifyEmail/${mockdata.invalidToken}`).send(mockdata.sendEmail);
     expect(res.status).to.be.equal(401);
+  });
+  it('Login with google.', (done) => {
+    chai
+      .request(app)
+      .get('/api/v1/google/callback')
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        done();
+      });
+  });
+  it('It should redirect to signUp', (done) => {
+    const res = {
+      redirect() {}
+    };
+    SocialAuthController.successSignUp(mockdata.req, res);
+    const mocks = mock(res);
+    mocks.expects('redirect').once().withExactArgs('/api/v1/google/callback');
+    done();
   });
 });
