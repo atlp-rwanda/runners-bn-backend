@@ -8,6 +8,7 @@ module.exports = {
     managerId: 2,
     role: 'requester',
     password: await passsword.encryptPassword('James@2020'),
+    isVerified: false,
     createdAt: new Date(),
     updatedAt: new Date()
   },
@@ -18,6 +19,7 @@ module.exports = {
     managerId: null,
     role: 'manager',
     password: await passsword.encryptPassword('James@2020'),
+    isVerified: false,
     createdAt: new Date(),
     updatedAt: new Date()
   },
@@ -28,6 +30,7 @@ module.exports = {
     managerId: null,
     role: 'tripAdmin',
     password: await passsword.encryptPassword('James@2020'),
+    isVerified: false,
     createdAt: new Date(),
     updatedAt: new Date()
   },
@@ -38,6 +41,7 @@ module.exports = {
     managerId: 2,
     role: 'requester',
     password: await passsword.encryptPassword('James@2020'),
+    isVerified: false,
     createdAt: new Date(),
     updatedAt: new Date()
   },
@@ -48,6 +52,7 @@ module.exports = {
     managerId: null,
     role: 'superAdmin',
     password: await passsword.encryptPassword('James@2020'),
+    isVerified: false,
     createdAt: new Date(),
     updatedAt: new Date()
   },

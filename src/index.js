@@ -8,10 +8,10 @@ import path from 'path';
 import http from 'http';
 import routes from './routes';
 import db from './database/models/index';
-import Passport from './config/passport';
 import './helpers/EventEmitters/eventEmitter';
 import './helpers/EventEmitters/eventListener';
 import socket from './helpers/sockets';
+import Passport from './config/localpassportConfig';
 
 Passport(passport);
 
@@ -21,6 +21,7 @@ const app = express();
 const server = http.createServer(app);
 
 app.use(cors());
+app.use(passport.initialize());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(morgan('dev'));
