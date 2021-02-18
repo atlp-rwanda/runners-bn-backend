@@ -23,7 +23,6 @@ describe('tests for Accommodations:', () => {
   afterEach(async () => {
     await Accommodation.destroy({
       where: {},
-      truncate: true
     });
   });
   it('should create accommodation', async () => {

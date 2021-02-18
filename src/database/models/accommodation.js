@@ -13,6 +13,12 @@ module.exports = (sequelize, DataTypes) => {
         as: 'city',
         onDelete: 'NO ACTION'
       });
+      Accommodation.hasMany(models.Room, {
+        foreignKey: 'accommodationId',
+        as: 'accommodation',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
+      });
     }
   }
   Accommodation.init({
@@ -63,6 +69,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     sequelize,
+    paranoid: false,
     modelName: 'Accommodation',
   });
   return Accommodation;

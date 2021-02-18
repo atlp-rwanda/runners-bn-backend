@@ -113,6 +113,13 @@ const mockdata = {
   loginManager: {
     email: 'jimnyagtr@gmail.com',
     password: 'James@2020'
+  },
+  validRoom: {
+    accommodationId: '1',
+    roomType: 'simple',
+    bedType: 'Single',
+    roomCost: 100,
+    roomNumber: 1,
   }
 };
 
