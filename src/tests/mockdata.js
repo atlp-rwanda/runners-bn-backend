@@ -2,6 +2,9 @@ const mockdata = {
   userRole: {
     role: 'requester',
   },
+  commentNumberTwo: {
+    comment: 'Trip will be interesting and will provide alot to the company in terms of techniques and alot of skilss okay olak'
+  },
   comment: {
     comment: 'Trip will interesting'
   },
@@ -35,7 +38,7 @@ const mockdata = {
     returnDate: '2030-07-27'
   },
   resetEmail: {
-    email: 'andelarunners@gmail.com',
+    email: 'nyagatarejames@gmail.com',
   },
   resetInvalidEmail: {
     email: 'andela'
@@ -105,11 +108,11 @@ const mockdata = {
   },
   loginadmin: {
     email: 'barefoottripadmin@runners.com',
-    password: 'james'
+    password: 'James@2020'
   },
   loginManager: {
-    email: 'barefootmanager@runners.com',
-    password: 'james'
+    email: 'jimnyagtr@gmail.com',
+    password: 'James@2020'
   }
 };
 

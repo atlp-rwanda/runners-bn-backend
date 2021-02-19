@@ -10,7 +10,7 @@ const generateToken = (data) => {
     email: data.email,
     firstName: data.firstName,
     lastName: data.lastName,
-    role: data.role
+    role: data.role,
   }, JWT_KEY);
   return token;
 };

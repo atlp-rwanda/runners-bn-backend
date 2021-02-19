@@ -13,6 +13,12 @@ module.exports = (sequelize, DataTypes) => {
 */
     static associate(models) {
       // define association here
+      User.hasMany(models.Notification, {
+        foreignKey: 'receiverId',
+        as: 'notifications',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
+      });
       User.hasMany(models.Trip, {
         foreignKey: 'userId',
         onDelete: 'CASCADE',
@@ -46,6 +52,11 @@ module.exports = (sequelize, DataTypes) => {
     role: {
       type: DataTypes.ENUM('superAdmin', 'manager', 'requester', 'tripAdmin'),
       defaultValue: 'requester',
+    },
+    emailAllowed: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,
+      allowNull: false
     },
     password: {
       type: DataTypes.STRING,

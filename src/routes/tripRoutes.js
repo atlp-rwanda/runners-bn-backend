@@ -14,7 +14,7 @@ const { addComment, getcomments, deleteComment } = CommentController;
 const {
   create, getAll, getOne, update
 } = TripController;
-const { adminAuth } = Auth;
+const { userAuth } = Auth;
 
 const router = Router();
 
@@ -65,7 +65,7 @@ const router = Router();
  *             description: server error.
  * */
 
-router.post('/new', adminAuth, tripReqValidator, create);
+router.post('/new', userAuth, tripReqValidator, create);
 /**
  * @swagger
  * /trips:
@@ -85,7 +85,7 @@ router.post('/new', adminAuth, tripReqValidator, create);
  *       500:
  *             description: server error.
  * */
-router.get('/', adminAuth, getAll);
+router.get('/', userAuth, getAll);
 /**
  * @swagger
  * /trips/{tripId}:
@@ -109,7 +109,7 @@ router.get('/', adminAuth, getAll);
  *       500:
  *             description: server error.
  * */
-router.get('/:tripId', adminAuth, tripIdValidator, getOne);
+router.get('/:tripId', userAuth, tripIdValidator, getOne);
 /**
  * @swagger
  * /trips/{tripId}:
@@ -160,7 +160,7 @@ router.get('/:tripId', adminAuth, tripIdValidator, getOne);
  *       500:
  *             description: server error.
  * */
-router.put('/:tripId', adminAuth, tripIdValidator, tripReqValidator, update);
+router.put('/:tripId', userAuth, tripIdValidator, tripReqValidator, update);
 /**
  * @swagger
  * /trips/{id}/comment:
@@ -197,7 +197,7 @@ router.put('/:tripId', adminAuth, tripIdValidator, tripReqValidator, update);
  *       500:
  *             description: server error.
  * */
-router.post('/:id/comment', adminAuth, isAllowed.isCommentator, roleIdValidator, isValidTrip.isValid, commentValidator, addComment);
+router.post('/:id/comment', userAuth, isAllowed.isCommentator, roleIdValidator, isValidTrip.isValid, commentValidator, addComment);
 /**
  * @swagger
  * /trips/{id}/comments:
@@ -225,7 +225,7 @@ router.post('/:id/comment', adminAuth, isAllowed.isCommentator, roleIdValidator,
  *       500:
  *             description: server error.
  * */
-router.get('/:id/comments', adminAuth, isAllowed.isCommentator, roleIdValidator, getcomments);
+router.get('/:id/comments', userAuth, isAllowed.isCommentator, roleIdValidator, getcomments);
 /**
  * @swagger
  * /trips/comments/{id}:
@@ -255,6 +255,6 @@ router.get('/:id/comments', adminAuth, isAllowed.isCommentator, roleIdValidator,
  *       500:
  *             description: server error.
  * */
-router.delete('/comments/:id', adminAuth, roleIdValidator, deleteComment);
+router.delete('/comments/:id', userAuth, roleIdValidator, deleteComment);
 
 export default router;

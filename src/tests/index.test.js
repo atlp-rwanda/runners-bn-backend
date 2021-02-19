@@ -1,12 +1,16 @@
 import mocha from 'mocha';
 import chai from 'chai';
 import chaiHttp from 'chai-http';
+import sgMail from '@sendgrid/mail';
+import { stub } from 'sinon';
 import app from '../index';
 
 chai.should();
 chai.use(chaiHttp);
 const { expect } = chai;
 const { it, describe } = mocha;
+
+stub(sgMail, 'send');
 
 describe('API testing', () => {
   it('it should display the welcome message', async () => {

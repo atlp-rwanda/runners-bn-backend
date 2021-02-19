@@ -49,7 +49,7 @@ describe('Trip related tests:', () => {
   it('should add a comment on a trip', async () => {
     const trip = await chai.request(app).post('/api/v1/trips/new').set('Authorization', mockdata.reqToken).send(mockdata.tripnewRequest);
     const tripId = trip.body.data.id;
-    const res = await chai.request(app).post(`/api/v1/trips/${tripId}/comment`).set('Authorization', mockdata.reqToken).send(mockdata.comment);
+    const res = await chai.request(app).post(`/api/v1/trips/${tripId}/comment`).set('Authorization', mockdata.manToken).send(mockdata.comment);
     expect(res.status).to.be.equal(201);
     expect(res.body).to.be.a('object');
     expect(res.body).to.have.property('message');

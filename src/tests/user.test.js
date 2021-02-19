@@ -2,10 +2,8 @@ import mocha from 'mocha';
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import jwt from 'jsonwebtoken';
-import { stub } from 'sinon';
 import app from '../index';
 import mockdata from './mockdata';
-import sendEmailToUser from '../helpers/mailer/sendMailer';
 
 chai.should();
 chai.use(chaiHttp);
@@ -14,7 +12,6 @@ const {
   it, describe
 } = mocha;
 
-stub(sendEmailToUser);
 const token = jwt.sign(mockdata.resetEmail, process.env.JWT_KEY);
 
 describe('User related tests:', () => {

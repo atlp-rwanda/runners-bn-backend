@@ -13,7 +13,7 @@ const {
   GetSingleccommodation, deleteAccommodation, updateAccommodation
 } = CrudAccommodations;
 
-const { adminAuth } = Auth;
+const { userAuth } = Auth;
 const { isTripAdmin } = isAllowed;
 
 /**
@@ -79,7 +79,7 @@ const { isTripAdmin } = isAllowed;
  * */
 
 router.post('/',
-  adminAuth,
+  userAuth,
   isTripAdmin,
   multerAccommodationUploads,
   accommodationValidator,
@@ -157,7 +157,7 @@ router.get('/:id', GetSingleccommodation);
  * */
 
 router.delete('/:id',
-  adminAuth,
+  userAuth,
   isTripAdmin,
   deleteAccommodation);
 
@@ -228,7 +228,7 @@ router.delete('/:id',
  * */
 
 router.put('/:id',
-  adminAuth,
+  userAuth,
   isTripAdmin,
   multerAccommodationUploads,
   accommodationValidator,
