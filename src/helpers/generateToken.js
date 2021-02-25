@@ -11,6 +11,7 @@ const generateToken = (data) => {
     firstName: data.firstName,
     lastName: data.lastName,
     role: data.role,
+    isVerified: data.isVerified
   }, JWT_KEY);
   return token;
 };

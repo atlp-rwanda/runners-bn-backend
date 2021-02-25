@@ -12,6 +12,8 @@ const {
   it, describe
 } = mocha;
 
+const emailtoken = jwt.sign(mockdata.sendEmail, process.env.JWT_KEY);
+
 const token = jwt.sign(mockdata.resetEmail, process.env.JWT_KEY);
 
 describe('User related tests:', () => {
@@ -67,12 +69,11 @@ describe('User related tests:', () => {
     expect(res.body).to.be.a('object');
     expect(res.body).to.have.property('error');
   });
-  it('should login a user', async () => {
+  it('should not login an unverified user', async () => {
     const res = await chai.request(app).post('/api/v1/users/login').send(mockdata.signin);
-    expect(res.status).to.be.equal(200);
+    expect(res.status).to.be.equal(404);
     expect(res.body).to.be.a('object');
-    expect(res.body).to.have.property('message');
-    expect(res.body).to.have.property('data');
+    expect(res.body).to.have.property('error');
   });
   it('should not login a user without valid password', async () => {
     const res = await chai.request(app).post('/api/v1/users/login').send(mockdata.signinInvalidPassword);
@@ -85,5 +86,13 @@ describe('User related tests:', () => {
     expect(res.status).to.be.equal(401);
     expect(res.body).to.be.a('object');
     expect(res.body).to.have.property('error');
+  });
+  it('should verify the email', async () => {
+    const res = await chai.request(app).patch(`/api/v1/users/verifyEmail/${emailtoken}`).send(mockdata.sendEmail);
+    expect(res.status).to.be.equal(200);
+  });
+  it('should not verify email with invalid token', async () => {
+    const res = await chai.request(app).patch(`/api/v1/users/verifyEmail/${mockdata.invalidToken}`).send(mockdata.sendEmail);
+    expect(res.status).to.be.equal(401);
   });
 });

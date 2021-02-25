@@ -21,7 +21,7 @@ export default class Auth {
    * @param {next} next used to move to the next middleware
    * @return {object} object of payload or error
    */
-  static resetPassAuth(req, res, next) {
+  static reqParamsAuth(req, res, next) {
     const { token } = req.params;
     verifyToken(token, req, res, next);
   }
