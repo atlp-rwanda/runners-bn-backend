@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable import/named */
 import { Router } from 'express';
 import code from '../helpers/statusCode';
 import Response from '../helpers/sendResponse';

@@ -108,11 +108,19 @@ const mockdata = {
   },
   loginadmin: {
     email: 'barefoottripadmin@runners.com',
-    password: 'James@2020'
+    password: 'Joey@2020'
+  },
+  adminlogin: {
+    email: 'superadmin@runners.com',
+    password: 'Joey@2020'
   },
   loginManager: {
-    email: 'jimnyagtr@gmail.com',
-    password: 'James@2020'
+    email: 'jaym@gmail.com',
+    password: 'Jayna@2020'
+  },
+  emailToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3NrYXk0QGdtYWlsLmNvbSIsImlzVmVyaWZpZWQiOmZhbHNlLCJpYXQiOjE2MTEwNzA1NTF9.ae7gH6lAb5WkRGyZ4Bf8JQXr7vsHHoxMUaq7y1zsLbI',
+  sendEmail: {
+    email: 'andelarunners@gmail.com',
   },
   validRoom: {
     accommodationId: '1',
@@ -122,5 +130,4 @@ const mockdata = {
     roomNumber: 1,
   }
 };
-
 export default mockdata;

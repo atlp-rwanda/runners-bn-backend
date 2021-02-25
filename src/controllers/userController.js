@@ -114,7 +114,8 @@ export default class UserController {
 
       const token = generateToken(payload);
       delete createUser.password;
-      return Response.success(res, code.created, 'User created successfully', {
+      await sendEmailToUser(email, actionsEnum.verifyEmail, createUser);
+      return Response.success(res, code.created, 'User created successfully,Please check your email for verification link', {
         user: createUser, token
       });
     } catch (error) {
@@ -132,18 +133,20 @@ export default class UserController {
   static async signin(req, res) {
     try {
       const loggedInUser = req.user;
-      const payload = {
-        id: loggedInUser.id,
-        firstName: loggedInUser.firstName,
-        lastName: loggedInUser.lastName,
-        email: loggedInUser.email,
-        role: loggedInUser.role
-      };
-      const token = generateToken(payload);
-      delete loggedInUser.password;
-      return Response.success(res, code.ok, 'User logged in successfully', {
-        user: loggedInUser, token
-      });
+      if (loggedInUser.isVerified === true) {
+        const payload = {
+          id: loggedInUser.id,
+          firstName: loggedInUser.firstName,
+          lastName: loggedInUser.lastName,
+          email: loggedInUser.email,
+          role: loggedInUser.role
+        };
+        const token = generateToken(payload);
+        delete loggedInUser.password;
+        return Response.success(res, code.ok, 'User logged in successfully', {
+          user: loggedInUser, token
+        });
+      } return Response.error(res, code.notFound, 'Please check your email for the verification link');
     } catch (error) {
       return Response.error(res, code.serverError, 'Something went wrong! Login failed');
     }
@@ -165,6 +168,25 @@ export default class UserController {
       return Response.success(res, code.ok, 'You ve opted out of email notifications successfully');
     } catch (error) {
       return Response.error(res, code.serverError, 'Oops something went wrong');
+    }
+  }
+
+  /**
+ * Get user by email if exists
+ * @param {Object} req provides the requests from users to controllers
+ * @param {Object} res provides responses to the users
+ * @return {object} Oject of data or error
+*/
+  static async verifyEmail(req, res) {
+    try {
+      const { email } = req.user;
+      const user = await UserService.findUser({ email });
+      if (!user) return Response.error(res, code.notFound, 'User does not exist!');
+      if (user.isVerified) return Response.error(res, code.conflict, 'User is already verified');
+      await UserService.updateUser({ isVerified: true }, { email });
+      return Response.success(res, code.ok, 'You have been verified!');
+    } catch (error) {
+      return Response.error(res, code.serverError, error);
     }
   }
 }
