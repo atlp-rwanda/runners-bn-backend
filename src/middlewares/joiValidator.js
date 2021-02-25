@@ -172,4 +172,23 @@ export default class JoiValidator {
     });
     joiResponse(req.body, res, schema, next);
   }
+
+  /**
+* @description this method validate user result
+* @param {object} req
+* @param {object} res
+* @param {object} next
+* @returns {object} res
+* @memberof JoiValidator
+*/
+  static roomValidator(req, res, next) {
+    const schema = Joi.object({
+      accommodationId: Joi.number().required(),
+      roomType: Joi.string().required().valid('simple', 'medium', 'large'),
+      bedType: Joi.string().valid('Single', 'Double', 'Triple', 'Quad', 'Queen', 'King', 'Twin', 'Double-double', 'Studio', 'Master-Suite', 'Mini-Suite').required(),
+      roomCost: Joi.number().required(),
+      roomNumber: Joi.number().required(),
+    });
+    joiResponse(req.body, res, schema, next);
+  }
 }
