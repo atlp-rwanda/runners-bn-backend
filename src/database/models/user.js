@@ -1,3 +1,4 @@
+/* eslint-disable valid-jsdoc */
 const {
   Model
 } = require('sequelize');
@@ -5,10 +6,10 @@ const {
 module.exports = (sequelize, DataTypes) => {
   /** Class representing a User model . */
   class User extends Model {
-    /**
-* @description this method to associate trip model to user model
+  /**
+* @description this method defines user association
 * @param {Object} models
-* @returns {object} returns associations
+* @returns {object} User
 * @memberof User
 */
     static associate(models) {
@@ -60,7 +61,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     password: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true,
     },
     isVerified: {
       type: DataTypes.BOOLEAN,

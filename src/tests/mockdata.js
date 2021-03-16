@@ -128,6 +128,54 @@ const mockdata = {
     bedType: 'Single',
     roomCost: 100,
     roomNumber: 1,
-  }
+  },
+  req: {
+    body: {},
+    user: {
+      provider: 'google',
+      sub: '105558165653746974168',
+      id: '105558165653746974168',
+      displayName: 'tess kay',
+      name: { givenName: 'tess', familyName: 'kay' },
+      given_name: 'tess',
+      family_name: 'kay',
+      email_verified: true,
+      verified: true,
+      language: 'en',
+      locale: undefined,
+      email: 'tesskay4@gmail.com',
+      emails: [{ value: 'tesskay4@gmail.com', type: 'account' }],
+      photos: [
+        {
+          value: 'https://lh3.googleusercontent.com/-ShCFcXwY_lI/AAAAAAAAAAI/AAAAAAAAAAA/AMZuucloln2rFhVnAEu9uMkOMFbD2Ujufg/s96-c/photo.jpg',
+          type: 'default'
+        }
+      ]
+    }
+  },
+  req2: {
+    body: {},
+    user: {
+      provider: 'google',
+      sub: '10618066622686234753',
+      id: '106180666226862347643',
+      displayName: 'test one',
+      name: { givenName: 'test', familyName: 'one' },
+      given_name: 'test',
+      family_name: 'one',
+      email_verified: true,
+      verified: true,
+      language: 'en',
+      locale: undefined,
+      email: 'test@gmail.com',
+      emails: [{ value: 'test@gmail.com', type: 'account' }],
+      photos: [
+        {
+          value: 'https://lh3.googleusercontent.com/a-/AOh14Ghe0RBclUzQrw32zJrUjIY-uN7XjLnYNr4SIX7U=s96-c',
+          type: 'default'
+        }
+      ]
+    }
+  },
 };
 export default mockdata;
