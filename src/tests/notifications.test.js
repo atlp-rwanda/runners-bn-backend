@@ -20,7 +20,7 @@ const markAllAsRead = '/api/v1/notification/readAll';
 
 const user = {
   email: 'jimnyagtr@gmail.com',
-  password: 'James@2020'
+  password: 'Janey@2020'
 };
 
 describe('Notification related tests:', () => {

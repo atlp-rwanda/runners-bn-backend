@@ -120,7 +120,6 @@ describe('tests for Accommodations:', () => {
   it('should not create accommodation without valid location ID', async () => {
     const loginUser = await chai.request(app).post('/api/v1/users/login').send(mockdata.loginadmin);
     const { token } = loginUser.body.data;
-    console.log(token);
     const res = await chai.request(app).post('/api/v1/accommodations/').set('Authorization', `Bearer ${token}`)
       .field({
         accommodationName: mockdata.validAccommodation.accommodationName,

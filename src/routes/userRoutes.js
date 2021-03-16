@@ -14,7 +14,6 @@ const {
   signinValidator,
   signupValidator
 } = JoiValidator;
-
 /**
  * @swagger
  * /users/signup:
@@ -54,9 +53,7 @@ const {
  *       500:
  *             description: server error.
  * */
-
 router.post('/signup', signupValidator, UserController.signup);
-
 /**
  * @swagger
  * /users/login:
@@ -91,6 +88,33 @@ router.post('/signup', signupValidator, UserController.signup);
  * */
 router.post('/login', signinValidator, passportCheck, UserController.signin);
 
+/**
+ * @swagger
+ * /users/verifyEmail/{token}:
+ *   patch:
+ *     tags:
+ *       - Users
+ *     name: user
+ *     summary: Verify email
+ *     consumes:
+ *       - application/json
+ *     parameters:
+ *       - name: token
+ *         in: path
+ *         required: true
+ *
+ *     responses:
+ *       200:
+ *             description: You have been verified.
+ *       404:
+ *             description: User does not exist.
+ *       409:
+ *             description: User is already verified.
+ *       500:
+ *             description: server error.
+ * */
+
+router.patch('/verifyEmail/:token', Auth.reqParamsAuth, UserController.verifyEmail);
 /**
  * @swagger
  * /users/{id}/role:
@@ -128,7 +152,6 @@ router.post('/login', signinValidator, passportCheck, UserController.signin);
  *       500:
  *             description: server error.
  * */
-
 router.put('/:id/role', Auth.userAuth, roleValidator, roleIdValidator, UserController.updateRole);
 /**
  * @swagger
@@ -160,7 +183,6 @@ router.put('/:id/role', Auth.userAuth, roleValidator, roleIdValidator, UserContr
  *       500:
  *             description: server error.
  * */
-
 router.post('/forgotPassword', forgotPassValidator, UserController.forgotPassword);
 /**
  * @swagger
@@ -199,7 +221,7 @@ router.post('/forgotPassword', forgotPassValidator, UserController.forgotPasswor
  *       500:
  *             description: server error.
  * */
-router.put('/resetPassword/:token', Auth.resetPassAuth, resetPassValidator, UserController.resetPassword);
+router.put('/resetPassword/:token', Auth.reqParamsAuth, resetPassValidator, UserController.resetPassword);
 
 /**
  * @swagger
@@ -223,5 +245,6 @@ router.put('/resetPassword/:token', Auth.resetPassAuth, resetPassValidator, User
  *       500:
  *             description: server error.
  * */
-router.patch('/unsubscribe/:token', Auth.resetPassAuth, UserController.unsubscribe);
+router.patch('/unsubscribe/:token', Auth.reqParamsAuth, UserController.unsubscribe);
+
 export default router;
